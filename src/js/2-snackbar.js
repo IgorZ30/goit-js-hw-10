@@ -13,19 +13,23 @@ function handleSubmit(e) {
    const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (state === "fulfilled") {
-        resolve(`✅ Fulfilled promise in ${delay}ms`);
+        resolve(delay);
       } else {
-        reject(`❌ Rejected promise in ${delay}ms`);
+        reject(delay);
       }
     }, delay);
    });
     promise
-        .then(value => iziToast.success({
-    message: `${value}`
-        }))
-    .catch(error=>iziToast.error({
-    message: `${error}`
-        }))
+    .then(delay => {
+      iziToast.success({
+        message: `✅ Fulfilled promise in ${delay}ms`,
+      });
+    })
+    .catch(delay => {
+      iziToast.error({
+        message: `❌ Rejected promise in ${delay}ms`,
+      });
+    });
 }
 
 form.addEventListener("submit",handleSubmit)
